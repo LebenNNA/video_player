@@ -464,8 +464,8 @@ static inline CGFloat radiansToDegrees(CGFloat radians) {
     self = [super init];
     NSAssert(self, @"super init cannot be nil");
     NSError *error;
-//    [KTVHTTPCache proxyStart:&error];
-//    [KTVHTTPCache cacheSetMaxCacheLength:1024 * 1024 * 250];
+    [KTVHTTPCache proxyStart:&error];
+    [KTVHTTPCache cacheSetMaxCacheLength:1024 * 1024 * 250];
     _registry = [registrar textures];
     _messenger = [registrar messenger];
     _registrar = registrar;
@@ -525,8 +525,8 @@ static inline CGFloat radiansToDegrees(CGFloat radians) {
         player = [[FLTVideoPlayer alloc] initWithAsset:assetPath frameUpdater:frameUpdater];
         return [self onPlayerSetup:player frameUpdater:frameUpdater];
     } else if (input.uri) {
-//        NSURL *proxyURL = [KTVHTTPCache proxyURLWithOriginalURL:[NSURL URLWithString:input.uri]];
-        player = [[FLTVideoPlayer alloc] initWithURL:[NSURL URLWithString:input.uri]
+        NSURL *proxyURL = [KTVHTTPCache proxyURLWithOriginalURL:[NSURL URLWithString:input.uri]];
+        player = [[FLTVideoPlayer alloc] initWithURL:proxyURL
                                         frameUpdater:frameUpdater];
         return [self onPlayerSetup:player frameUpdater:frameUpdater];
     } else {
